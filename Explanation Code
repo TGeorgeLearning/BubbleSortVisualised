@@ -1,0 +1,46 @@
+import java.util.Arrays; // This is used to import the Arrays Class into the program
+import java.util.Scanner; // This is used to import the Scanner Class into the program
+class Main {
+  public static void main(String[] args) {
+    Scanner scan = new Scanner(System.in); // Allows for our scanner to check our keyboard inputs
+    int [] numbers = {5,13,2,3,8}; // Initialises the array that we want to sort
+    String saveString=""; // Initialises a string to help store the string form of our array each time we modify it
+    String saveArray=Arrays.toString(numbers); // Initialises a string to showcase the initial array at the end of the sorting
+    String continuation=""; // Used with the scanner to have the program pause until we press enter when one step is done, does not matter what is saved in the variable
+    int temp=0; // Temporary variable to swap numbers
+    int reduction=numbers.length; // Each time you iterate through the array, there will be at least one less element to have to deal with in the sorting, so we reduce this variable by 1 after each iteration
+    int iteration=0; // Counts the number of iterations
+    boolean check=true; // Used to see when we should stop sorting through the list
+
+    for (int x=0; x<numbers.length; x++) {
+      check=false; 
+      System.out.print("\033[H\033[2J"); // Clears the console
+      if (x!=0) {
+System.out.println("Iteration " + iteration + " Complete");
+      }
+      for (int y=1; y<reduction; y++) {
+        if (numbers[y]<numbers[y-1]) { // If the current number is smaller than the number before it, then you should swap the numbers
+          check=true; // Everytime we have to swap, we make check true, which lets the program understand that the swapping is not done yet
+          System.out.println("Swapped numbers " + numbers[y-1] + " and " + numbers[y]);
+     saveString=Arrays.toString(numbers); // Saving the array as a string before swapping the two values
+
+          temp=numbers[y-1];
+          numbers[y-1]=numbers[y]; 
+          numbers[y]=temp; // Swapping the numbers
+            System.out.println(saveString + " -> " +       Arrays.toString(numbers)); // Shows the array before and after it was modified
+          System.out.println("Enter to continue ");
+          continuation=scan.nextLine(); // The program will only continue when something is stored to this variable! Simply pressing enter is enough to continue the program
+        System.out.print("\033[H\033[2J"); // Clears the console
+
+          }
+        }
+      if (check) {
+        iteration++; // This is done after the second for loop is finished, which allows us to see if there was any sorting done. If there was any sorting done, then we know that it went through the array, meaning that we have to increase the variable iteration by 1
+      }
+                
+      reduction--;
+      }
+    System.out.println("Your array has been sorted!"); 
+    System.out.println(saveArray + " -> " + Arrays.toString(numbers)); // Prints out the initial array and the final sorted array
+    }
+  }
